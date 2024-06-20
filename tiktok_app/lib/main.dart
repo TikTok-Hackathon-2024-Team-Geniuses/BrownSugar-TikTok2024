@@ -138,6 +138,32 @@ class _MyHomePageState extends State<MyHomePage> {
                 Text('another item on the same'),
               ],
             ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: _textController,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Enter text',
+                ),
+                onSubmitted: (value) => _addText(),
+              ),
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: _texts.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(_texts[index]),
+                    textColor: const Color.fromARGB(255, 169, 3, 152),
+                    tileColor: const Color.fromARGB(131, 194, 194, 26),
+                  );
+                },
+              ),
+            ),
+            Expanded(
+                child:
+                    Container(color: const Color.fromARGB(255, 26, 158, 194))),
           ],
         ),
       ),
