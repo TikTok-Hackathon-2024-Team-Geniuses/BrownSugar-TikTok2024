@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 void main() {
   runApp(const MyApp());
@@ -125,6 +126,17 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const Text('Add another text to explore how this works'),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment
+                  .center, // Optional: Center the Row's children horizontally
+              children: <Widget>[
+                Text('Add a new item on row'),
+                SizedBox(
+                    width: 10), // Optional: Add some space between the texts
+                Text('another item on the same'),
+              ],
             ),
           ],
         ),
