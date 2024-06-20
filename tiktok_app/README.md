@@ -20,7 +20,8 @@ samples, guidance on mobile development, and a full API reference.
 flutter run
 
 - Select a platform to run the app.
--
+
+### This branch is used to explore and test on flutter.
 
 ### here's the progress where i left off.
 
