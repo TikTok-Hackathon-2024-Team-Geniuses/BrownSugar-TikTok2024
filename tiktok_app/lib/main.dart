@@ -5,7 +5,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-
   //final AudioRepository audioRepository = AudioRepository(TikTokApiService());
 
   const MyApp({super.key});
@@ -31,7 +30,8 @@ class MyApp extends StatelessWidget {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color.fromARGB(255, 84, 69, 111)),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
@@ -59,6 +59,17 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  final TextEditingController _textController = TextEditingController();
+  final List<String> _texts = [];
+
+  void _addText() {
+    if (_textController.text.isNotEmpty) {
+      setState(() {
+        _texts.add(_textController.text);
+        _textController.clear();
+      });
+    }
+  }
 
   void _incrementCounter() {
     setState(() {
