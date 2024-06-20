@@ -2,176 +2,284 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+      const MyApp()); // Entry point of the application, running the MyApp widget.
 }
 
 class MyApp extends StatelessWidget {
-  //final AudioRepository audioRepository = AudioRepository(TikTokApiService());
+  const MyApp(
+      {super.key}); // Constructor for MyApp, using const to indicate it is a compile-time constant.
 
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'TikTok App',
+      title: 'TikTok App', // The title of the application.
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
+        // Theme configuration for the application.
         colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color.fromARGB(255, 84, 69, 111)),
-        useMaterial3: true,
+          seedColor: const Color.fromARGB(
+              255, 84, 69, 111), // Seed color for generating the color scheme.
+        ),
+        useMaterial3: true, // Using Material Design 3.
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home:
+          const MusicScreen(), // Setting the home screen of the application to MusicScreen.
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-  final TextEditingController _textController = TextEditingController();
-  final List<String> _texts = [];
-
-  void _addText() {
-    if (_textController.text.isNotEmpty) {
-      setState(() {
-        _texts.add(_textController.text);
-        _textController.clear();
-      });
-    }
-  }
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+// This screen displays the music section of the application.
+class MusicScreen extends StatelessWidget {
+  const MusicScreen({super.key}); // Constructor for MusicScreen.
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
+      // Provides the structure for the screen with an AppBar and body.
       appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            const Text('Add another text to explore how this works'),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment
-                  .center, // Optional: Center the Row's children horizontally
-              children: <Widget>[
-                Text('Add a new item on row'),
-                SizedBox(
-                    width: 10), // Optional: Add some space between the texts
-                Text('another item on the same'),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                controller: _textController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Enter text',
+        // The top app bar with a back button, search bar, and search icon.
+        backgroundColor: Colors.black, // Background color of the AppBar.
+        leading: Hero(
+          // Hero animation for the back button.
+          tag: 'backButton', // Unique tag for the Hero animation.
+          child: IconButton(
+            icon: const Icon(Icons.arrow_back,
+                color: Colors.white), // Icon for the back button.
+            // Function executed when the back button is pressed.
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text(
+                      'Returning to the previous page...'), // Message displayed in the SnackBar.
                 ),
-                onSubmitted: (value) => _addText(),
+              );
+              Future.delayed(const Duration(seconds: 2), () {
+                // Adding a delay before popping the navigation.
+                // Navigator.pop(context);
+                // atm we won't navigate back to any page
+              });
+            },
+          ),
+        ),
+        title: Hero(
+          // Hero animation for the search bar.
+          tag: 'searchBar', // Unique tag for the Hero animation.
+          child: Material(
+            color: Colors
+                .transparent, // Transparent background for the Material widget.
+            child: Container(
+              decoration: BoxDecoration(
+                // Applying a linear gradient to the container's background.
+                gradient: const LinearGradient(
+                  colors: [
+                    Colors.pinkAccent,
+                    Colors.purpleAccent
+                  ], // Gradient colors.
+                  begin: Alignment.topLeft, // Starting point of the gradient.
+                  end: Alignment.bottomRight, // Ending point of the gradient.
+                ),
+                borderRadius: BorderRadius.circular(
+                    30.0), // Rounded corners for the container.
+              ),
+              child: TextField(
+                decoration: const InputDecoration(
+                  // Configuration for the TextField's decoration.
+                  hintText: 'Search', // Placeholder text for the search bar.
+                  hintStyle: TextStyle(
+                      color: Colors.white70), // Style for the hint text.
+                  border: InputBorder
+                      .none, // Removing the default border of the TextField.
+                  prefixIcon: Icon(Icons.search,
+                      color: Colors
+                          .white), // Icon displayed at the beginning of the TextField.
+                  contentPadding: EdgeInsets.symmetric(
+                      vertical: 15.0), // Padding inside the TextField.
+                ),
+                // This is the onSubmitted function for the search bar.
+                // It displays a SnackBar with the search query when the user submits the search.
+                onSubmitted: (value) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                          'Searching for "$value"'), // Message displayed in the SnackBar.
+                    ),
+                  );
+                },
+                style: const TextStyle(
+                    color: Colors
+                        .white), // Style for the text entered in the TextField.
               ),
             ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: _texts.length,
+          ),
+        ),
+        actions: const [
+          // Additional actions displayed at the end of the AppBar.
+          Hero(
+            tag: 'searchIcon', // Unique tag for the Hero animation.
+            child: Padding(
+              padding: EdgeInsets.all(8.0), // Padding around the search icon.
+              child: Icon(Icons.search, color: Colors.white), // Search icon.
+            ),
+          ),
+        ],
+      ),
+      body: Padding(
+        // Adding padding around the body content.
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          // Makes the body content scrollable.
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment
+                .start, // Aligns children to the start of the column.
+            children: [
+              // Section title with vibrant style.
+              const Text(
+                'Music for you',
+                style: TextStyle(
+                  fontSize: 24, // Font size of the text.
+                  fontWeight: FontWeight.bold, // Font weight of the text.
+                  color: Colors.pinkAccent, // Text color.
+                  fontFamily: 'Vintage', // Custom font family.
+                ),
+              ),
+              const SizedBox(height: 10), // Spacer with a height of 10 pixels.
+              // Grid view for 'Music for you' section with vibrant style.
+              GridView.builder(
+                // Ensures the GridView takes only the necessary space and does not expand infinitely.
+                shrinkWrap: true,
+                // Disables scrolling for the GridView since it is wrapped in a SingleChildScrollView.
+                physics: const NeverScrollableScrollPhysics(),
+                // Defines the grid layout for the GridView.
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2, // Sets the number of columns in the grid.
+                  crossAxisSpacing:
+                      10, // Sets the horizontal space between grid items.
+                  mainAxisSpacing:
+                      10, // Sets the vertical space between grid items.
+                  childAspectRatio:
+                      1.5, // Sets the aspect ratio of the grid items.
+                ),
+                itemCount: 4, // Number of items in the grid.
+                // Builds each item in the grid.
                 itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(_texts[index]),
-                    textColor: const Color.fromARGB(255, 169, 3, 152),
-                    tileColor: const Color.fromARGB(131, 194, 194, 26),
+                  return AnimatedContainer(
+                    // Duration of the animation for property changes.
+                    duration: const Duration(milliseconds: 500),
+                    // Decoration of the container, including gradient, border radius, and border.
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        // List of colors for the gradient, changing based on the index.
+                        colors: [
+                          Colors.primaries[index % Colors.primaries.length]
+                              .withOpacity(0.7),
+                          Colors
+                              .primaries[(index + 1) % Colors.primaries.length]
+                              .withOpacity(0.7)
+                        ],
+                        begin: Alignment
+                            .topLeft, // Starting point of the gradient.
+                        end: Alignment
+                            .bottomRight, // Ending point of the gradient.
+                      ),
+                      borderRadius: BorderRadius.circular(
+                          10), // Rounded corners for the container.
+                      border: Border.all(
+                          color: Colors.black54,
+                          width:
+                              1), // Border for the container with color and width.
+                    ),
+                    // Content of the container.
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment
+                          .center, // Centers the children vertically and horizontally.
+                      children: [
+                        // Icon to represent play action.
+                        const Icon(Icons.play_arrow,
+                            size: 50, color: Colors.white),
+                        const SizedBox(
+                            height:
+                                10), // Spacer to create some vertical space between the icon and the text.
+                        // Text displaying the music number.
+                        Text(
+                          'Music ${index + 1}',
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Vintage'), // Styling for the text.
+                        ),
+                      ],
+                    ),
                   );
                 },
               ),
-            ),
-            Expanded(
-                child:
-                    Container(color: const Color.fromARGB(255, 26, 158, 194))),
-          ],
+              const SizedBox(height: 20), // Spacer with a height of 20 pixels.
+              // Section title with vibrant style.
+              const Text(
+                'Trending',
+                style: TextStyle(
+                  fontSize: 24, // Font size of the text.
+                  fontWeight: FontWeight.bold, // Font weight of the text.
+                  color: Colors.pinkAccent, // Text color.
+                  fontFamily: 'Vintage', // Custom font family.
+                ),
+              ),
+              const SizedBox(height: 10),
+              // Grid view for 'Trending' section with vibrant style
+              GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  childAspectRatio: 1.5,
+                ),
+                itemCount: 4,
+                itemBuilder: (context, index) {
+                  return AnimatedContainer(
+                    duration: const Duration(milliseconds: 500),
+                    decoration: BoxDecoration(
+                      // Applying a linear gradient to the container's background
+                      gradient: LinearGradient(
+                        colors: [
+                          // Selecting colors from Colors.primaries and making them slightly transparent
+                          // The index ensures a variety of colors by offsetting the index and wrapping around using modulo operation
+                          Colors
+                              .primaries[(index + 4) % Colors.primaries.length]
+                              .withOpacity(0.7),
+                          Colors
+                              .primaries[(index + 5) % Colors.primaries.length]
+                              .withOpacity(0.7),
+                        ],
+                        // The gradient starts from the top-left corner of the container
+                        begin: Alignment.topLeft,
+                        // The gradient ends at the bottom-right corner of the container
+                        end: Alignment.bottomRight,
+                      ),
+                      // Adding rounded corners to the container with a radius of 10 pixels
+                      borderRadius: BorderRadius.circular(10),
+                      // Adding a border with a color and width
+                      border: Border.all(color: Colors.black54, width: 1),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.play_arrow,
+                            size: 50, color: Colors.white),
+                        const SizedBox(height: 10),
+                        Text(
+                          'Trending ${index + 1}',
+                          style: const TextStyle(
+                              color: Colors.white, fontFamily: 'Vintage'),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
