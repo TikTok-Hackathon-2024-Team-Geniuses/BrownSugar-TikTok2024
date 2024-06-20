@@ -25,4 +25,10 @@ flutter run
 
 ### here's the progress where i left off.
 
+day1:
+
 - ![Alt text](image.png)
+
+day2:
+
+- ![Alt text](image-1.png)
